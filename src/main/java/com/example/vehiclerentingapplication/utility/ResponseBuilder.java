@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Response {
+public class ResponseBuilder {
 	
 	 public <T> ResponseEntity<ResponseStructure<T>> sendResponse(HttpStatus status, String message, T data) {
 	        ResponseStructure<T> responseStructure = new ResponseStructure<>();
