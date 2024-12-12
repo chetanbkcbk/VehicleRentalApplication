@@ -1,4 +1,4 @@
-package com.example.vehiclerentingapplication.userrepository;
+package com.example.vehiclerentingapplication.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

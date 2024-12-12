@@ -25,4 +25,13 @@ public class ResponseStructure<T> {
 		this.data = data;
 	}
 	
+	public static <T> ResponseStructure<T> create(int statusCode, String message, T data) {
+        ResponseStructure<T> responseStructure = new ResponseStructure<>();
+        responseStructure.setStatusCode(statusCode);
+        responseStructure.setMessage(message);
+        responseStructure.setData(data);
+        
+        return responseStructure;
+	}
+	
 }
