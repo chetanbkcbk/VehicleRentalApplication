@@ -34,42 +34,5 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(user);
 	}
 
-	@Override
-	public void addUser_ProfilePicture(int userId, MultipartFile multipartFile) {
-		Optional<User> optional = userRepository.findById(userId);
 	
-		if(optional.isPresent())
-		{
-			Image image = getImage(multipartFile);//invoking a method
-				image=imageRepository.save(image);
-				
-				User user=optional.get();
-				user.setProfilePicture(image);
-				userRepository.save(user);
-		}
-		else
-		{
-			//throw exception 
-			throw new UserNotFoundByIdException("no such userid");
-		}
-	}
-	
-	
-	private Image getImage(MultipartFile multipartFile) {
-		
-		Image image=new Image();
-		
-		try {
-			byte[] imageBytes = multipartFile.getBytes();
-			image.setContentType(multipartFile.getContentType());
-			image.setImageBytes(imageBytes);
-			
-		}
-		catch(IOException e) {
-			//throw custom exception
-			throw new FailedToUploadImageException("image NOT uploaded");
-		}
-		return image;	
-	}
-
 }

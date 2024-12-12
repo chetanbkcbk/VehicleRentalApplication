@@ -33,11 +33,6 @@ public class UserController {
 		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", user);
 	}
 	
-	@PostMapping("/users/profile-picture")
-	public ResponseEntity<SimpleResponseStructure> addUser_ProfilePicture(@RequestParam int userId,MultipartFile multipartFile)
-	{
-		userService.addUser_ProfilePicture(userId,multipartFile);
-		return responseBuilder.success(HttpStatus.OK, "User profile picture updated");
-	}
+	
 
 }
