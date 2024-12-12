@@ -33,4 +33,14 @@ public class ApplicationExceptionHandler {
 		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure> handleImageNotFound(ImageNotFoundException ex) {
+		
+		ErrorStructure<String > errorStructure=new ErrorStructure<String>();
+		errorStructure.setStatuscode(HttpStatus.NOT_FOUND.value());
+		errorStructure.setMessage(ex.getMessage());
+		errorStructure.setData("No image with such image id present in the database");
+		
+		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.NOT_FOUND);
+	}
 }
