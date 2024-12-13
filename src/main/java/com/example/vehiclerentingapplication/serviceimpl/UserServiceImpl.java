@@ -10,8 +10,11 @@ import com.example.vehiclerentingapplication.entity.Image;
 import com.example.vehiclerentingapplication.entity.User;
 import com.example.vehiclerentingapplication.exception.FailedToUploadImageException;
 import com.example.vehiclerentingapplication.exception.UserNotFoundByIdException;
+import com.example.vehiclerentingapplication.mapper.UserMapper;
 import com.example.vehiclerentingapplication.repository.ImageRepository;
 import com.example.vehiclerentingapplication.repository.UserRepository;
+import com.example.vehiclerentingapplication.requestdto.UserRequest;
+import com.example.vehiclerentingapplication.responsedto.UserResponse;
 import com.example.vehiclerentingapplication.service.UserService;
 
 @Service
@@ -21,17 +24,23 @@ public class UserServiceImpl implements UserService{
 	
 	private final ImageRepository imageRepository;
 	
-	public UserServiceImpl(UserRepository userRepository,ImageRepository imageRepository) {
+	private final UserMapper userMapper;
+	
+	public UserServiceImpl(UserRepository userRepository,ImageRepository imageRepository,UserMapper userMapper) {
 		super();
 		this.userRepository = userRepository;
 		this.imageRepository=imageRepository;
+		this.userMapper=userMapper;
 	}
 
 	
 
 	@Override
-	public User register(User user) {
-		return userRepository.save(user);
+	public UserResponse register(UserRequest userrequest) {
+		User user = userMapper.mapToUser(userrequest);
+		user= userRepository.save(user);
+		
+		return userMapper.mapToUserResponse(user);
 	}
 
 	

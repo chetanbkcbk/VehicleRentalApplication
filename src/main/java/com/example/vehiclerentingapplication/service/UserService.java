@@ -3,10 +3,12 @@ package com.example.vehiclerentingapplication.service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.vehiclerentingapplication.entity.User;
+import com.example.vehiclerentingapplication.requestdto.UserRequest;
+import com.example.vehiclerentingapplication.responsedto.UserResponse;
 
 public interface UserService {
 
-	User register(User user);
+	UserResponse register(UserRequest userrequest);
 
 
 }
