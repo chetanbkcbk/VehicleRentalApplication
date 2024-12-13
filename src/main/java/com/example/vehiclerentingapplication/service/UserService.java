@@ -10,5 +10,7 @@ public interface UserService {
 
 	UserResponse register(UserRequest userrequest);
 
+	UserResponse findUserById(int userId);
+
 
 }
