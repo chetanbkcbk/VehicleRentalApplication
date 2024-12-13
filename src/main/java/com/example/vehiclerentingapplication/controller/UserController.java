@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.vehiclerentingapplication.entity.User;
+import com.example.vehiclerentingapplication.requestdto.UserRequest;
+import com.example.vehiclerentingapplication.responsedto.UserResponse;
 import com.example.vehiclerentingapplication.service.UserService;
 import com.example.vehiclerentingapplication.utility.ResponseStructure;
 import com.example.vehiclerentingapplication.utility.RestResponseBuilder;
@@ -27,10 +29,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<ResponseStructure<User>> register(@RequestBody User user)
+	public ResponseEntity<ResponseStructure<UserResponse>> register(@RequestBody UserRequest userrequest)
 	{
-		user = userService.register(user);
-		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", user);
+		UserResponse userresponse = userService.register(userrequest);
+		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", userresponse);
 	}
 	
 	

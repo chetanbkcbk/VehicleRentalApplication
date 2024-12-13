@@ -82,9 +82,7 @@ public class ImageServiceImpl implements ImageService{
 		{
 			throw new ImageNotFoundException("Image with such an id not found");
 			
-		}
-		
-		
+		}	
 		
 	}
 
