@@ -34,6 +34,7 @@ public class UserMapper {
 		userresponse.setEmail(user.getEmail());
 		userresponse.setPhoneNumber(user.getPhoneNumber());
 		userresponse.setRole(user.getRole());
+//		userresponse.setRole(null);
 		
 		return userresponse;
 		

@@ -10,6 +10,14 @@ public class UserResponse {
 	private String phoneNumber;
 	private UserRole role;
 	
+	private String profilePictureLink;
+	
+	public String getProfilePictureLink() {
+		return profilePictureLink;
+	}
+	public void setProfilePictureLink(String profilePictureLink) {
+		this.profilePictureLink = profilePictureLink;
+	}
 	public int getUserId() {
 		return userId;
 	}
