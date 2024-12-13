@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.vehiclerentingapplication.entity.Image;
 import com.example.vehiclerentingapplication.entity.User;
+import com.example.vehiclerentingapplication.enums.UserRole;
 import com.example.vehiclerentingapplication.exception.FailedToUploadImageException;
 import com.example.vehiclerentingapplication.exception.UserNotFoundByIdException;
 import com.example.vehiclerentingapplication.mapper.UserMapper;
@@ -34,13 +35,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponse register(UserRequest userrequest) {
+	public UserResponse register(UserRequest userrequest,UserRole userrole) {
 		User user = userMapper.mapToUser(userrequest);
+		user.setRole(userrole);
+		
 		user = userRepository.save(user);
 
 		return userMapper.mapToUserResponse(user);
 	}
 
+	
+	
 	@Override
 	public UserResponse findUserById(int userId) {
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.vehiclerentingapplication.entity.User;
+import com.example.vehiclerentingapplication.enums.UserRole;
 import com.example.vehiclerentingapplication.requestdto.UserRequest;
 import com.example.vehiclerentingapplication.responsedto.UserResponse;
 import com.example.vehiclerentingapplication.service.UserService;
@@ -30,12 +31,22 @@ public class UserController {
 		this.responseBuilder = responseBuilder;
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<ResponseStructure<UserResponse>> register(@RequestBody UserRequest userrequest)
+	@PostMapping("/customer/register")
+	public ResponseEntity<ResponseStructure<UserResponse>> registerCustomer(@RequestBody UserRequest userrequest)
 	{
-		UserResponse userresponse = userService.register(userrequest);
+		UserResponse userresponse = userService.register(userrequest,UserRole.CUSTOMER);
 		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", userresponse);
 	}
+	
+	
+	@PostMapping("/renting-partner/register")
+	public ResponseEntity<ResponseStructure<UserResponse>> registerRentingPartner(@RequestBody UserRequest userrequest)
+	{
+		UserResponse userresponse = userService.register(userrequest,UserRole.RENTING_PARTNER);
+		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", userresponse);
+	}
+	
+	
 	
 	@GetMapping("/users/{userId}")
 	public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable int userId)
