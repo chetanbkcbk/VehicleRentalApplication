@@ -33,21 +33,35 @@ public class ImageServiceImpl implements ImageService{
 	public void addUser_ProfilePicture(int userId, MultipartFile multipartFile) {
 		Optional<User> optional = userRepository.findById(userId);
 	
-		if(optional.isPresent())
-		{
-			Image image = getImage(multipartFile);//invoking a method
-				image=imageRepository.save(image);
-				
-				User user=optional.get();
-				user.setProfilePicture(image);
-				userRepository.save(user);
-		}
-		else
-		{
-			//throw exception 
-			throw new UserNotFoundByIdException("no such userid");
-		}
+	    if (optional.isPresent()) {
+	        User user = optional.get();
+
+	        // Check if the user already has a profile picture
+	        if (user.getProfilePicture() != null) {
+	            // If a profile picture exists, delete it before adding the new one
+	            
+	        	Image existingProfilePicture = user.getProfilePicture();
+	            this.uploadUserProfile(multipartFile, user);
+	            imageRepository.delete(existingProfilePicture);
+	        }
+	        this.uploadUserProfile(multipartFile, user);	       
+	    
+	    
+	    } else {
+	        // Throw exception if user is not found
+	        throw new UserNotFoundByIdException("No such user ID");
+	    }
 	}
+	
+	private void uploadUserProfile(MultipartFile file,User user)
+	{
+		 Image image = imageRepository.save(this.getImage(file)); // Save the new image to the repository
+
+	        // Update the user's profile picture reference
+	        user.setProfilePicture(image);
+	        userRepository.save(user); // Save the updated user
+	}
+
 	
 	
 	private Image getImage(MultipartFile multipartFile) {
