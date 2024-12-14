@@ -13,5 +13,7 @@ public interface UserService {
 
 	UserResponse findUserById(int userId);
 
+	UserResponse updateUserById(UserRequest userRequest, int userId);
+
 
 }
