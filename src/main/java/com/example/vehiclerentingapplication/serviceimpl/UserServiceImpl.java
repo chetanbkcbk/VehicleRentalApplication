@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponse register(UserRequest userrequest,UserRole userrole) {
-		User user = userMapper.mapToUser(userrequest);
+		User user = userMapper.mapToUser(userrequest, new User());
 		user.setRole(userrole);
 		
 		user = userRepository.save(user);
@@ -72,4 +72,21 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public UserResponse updateUserById(UserRequest userRequest, int userId) {
+			
+		Optional<User> optional =userRepository.findById(userId);
+		if (optional.isPresent()) {
+			User user = userMapper.mapToUser(userRequest, optional.get());
+			user=userRepository.save(user);
+			UserResponse userresponse = userMapper.mapToUserResponse(user);
+		return userresponse;
+	}
+		else
+		{
+			throw new UserNotFoundByIdException("no such userId");
+			
+		}
+
+}
 }

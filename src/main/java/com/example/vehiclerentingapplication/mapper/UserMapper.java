@@ -11,9 +11,8 @@ import com.example.vehiclerentingapplication.responsedto.UserResponse;
 public class UserMapper {
 	
 	
-	public User mapToUser(UserRequest request) {
+	public User mapToUser(UserRequest request, User user) {
 		
-		User user = new User();
 		user.setUsername(request.getUsername());
 		user.setEmail(request.getEmail());
 		user.setPassword(request.getPassword());
