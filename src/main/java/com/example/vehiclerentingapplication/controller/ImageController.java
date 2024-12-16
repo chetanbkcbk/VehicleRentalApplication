@@ -1,5 +1,7 @@
 package com.example.vehiclerentingapplication.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +47,12 @@ public class ImageController {
 		            .body(imageBytes);
 		} 
 	
+	@PostMapping("/vehicles/{vehicleId}/images")
+	public ResponseEntity<SimpleResponseStructure> addVehicleImages(@PathVariable int vehicleId,List<MultipartFile> multipartFiles)
+	{
+		imageService.addVehicleImages(vehicleId,multipartFiles);
+		return responseBuilder.success(HttpStatus.OK, "VehicleImages added");
+	}
 	
 	
 	}
