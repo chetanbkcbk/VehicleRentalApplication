@@ -43,4 +43,14 @@ public class ApplicationExceptionHandler {
 		
 		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.NOT_FOUND);
 	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure> handleVehicleNotFound(VehicleNotFoundException ex) {
+		
+		ErrorStructure<String > errorStructure=new ErrorStructure<String>();
+		errorStructure.setStatuscode(HttpStatus.NOT_FOUND.value());
+		errorStructure.setMessage(ex.getMessage());
+		errorStructure.setData("No Vehicle with such vehicle id present in the database");
+		
+		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.NOT_FOUND);
+	}
 }

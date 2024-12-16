@@ -1,5 +1,7 @@
 package com.example.vehiclerentingapplication.service;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,5 +13,7 @@ public interface ImageService {
 	void addUser_ProfilePicture(int userId, MultipartFile multipartFile);
 	
 	Image findImageById( int imageId);
+
+	void addVehicleImages(int vehicleId, List<MultipartFile> multipartFile);
 
 }
