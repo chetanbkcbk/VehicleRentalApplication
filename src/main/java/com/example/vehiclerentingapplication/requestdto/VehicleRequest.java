@@ -1,10 +1,7 @@
 package com.example.vehiclerentingapplication.requestdto;
 
-import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
 
-import com.example.vehiclerentingapplication.entity.Image;
 import com.example.vehiclerentingapplication.enums.FuelType;
 import com.example.vehiclerentingapplication.enums.VehicleType;
 
