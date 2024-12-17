@@ -3,6 +3,7 @@ package com.example.vehiclerentingapplication.serviceimpl;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,17 +27,23 @@ public class UserServiceImpl implements UserService {
 	private final ImageRepository imageRepository;
 
 	private final UserMapper userMapper;
+	
+	private final PasswordEncoder passwordEncoder;
 
-	public UserServiceImpl(UserRepository userRepository, ImageRepository imageRepository, UserMapper userMapper) {
+	public UserServiceImpl(UserRepository userRepository, ImageRepository imageRepository, UserMapper userMapper,PasswordEncoder passwordEncoder) {
 		super();
 		this.userRepository = userRepository;
 		this.imageRepository = imageRepository;
 		this.userMapper = userMapper;
+		this.passwordEncoder=passwordEncoder;
 	}
 
 	@Override
 	public UserResponse register(UserRequest userrequest,UserRole userrole) {
 		User user = userMapper.mapToUser(userrequest, new User());
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		user.setRole(userrole);
 		
 		user = userRepository.save(user);
@@ -78,6 +85,8 @@ public class UserServiceImpl implements UserService {
 		Optional<User> optional =userRepository.findById(userId);
 		if (optional.isPresent()) {
 			User user = userMapper.mapToUser(userRequest, optional.get());
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+
 			user=userRepository.save(user);
 			UserResponse userresponse = userMapper.mapToUserResponse(user);
 		return userresponse;
