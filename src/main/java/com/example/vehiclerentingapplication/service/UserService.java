@@ -11,9 +11,9 @@ public interface UserService {
 
 	UserResponse register(UserRequest userrequest,UserRole userrole);
 
-	UserResponse findUserById(int userId);
+	UserResponse findUserById();
 
-	UserResponse updateUserById(UserRequest userRequest, int userId);
+	UserResponse updateUserById(UserRequest userRequest);
 
 
 }

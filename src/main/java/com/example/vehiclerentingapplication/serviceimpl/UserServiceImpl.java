@@ -17,6 +17,7 @@ import com.example.vehiclerentingapplication.repository.ImageRepository;
 import com.example.vehiclerentingapplication.repository.UserRepository;
 import com.example.vehiclerentingapplication.requestdto.UserRequest;
 import com.example.vehiclerentingapplication.responsedto.UserResponse;
+import com.example.vehiclerentingapplication.security.AuthUtil;
 import com.example.vehiclerentingapplication.service.UserService;
 
 @Service
@@ -29,13 +30,16 @@ public class UserServiceImpl implements UserService {
 	private final UserMapper userMapper;
 	
 	private final PasswordEncoder passwordEncoder;
+	
+	private final AuthUtil authUtil;
 
-	public UserServiceImpl(UserRepository userRepository, ImageRepository imageRepository, UserMapper userMapper,PasswordEncoder passwordEncoder) {
+	public UserServiceImpl(UserRepository userRepository, ImageRepository imageRepository, UserMapper userMapper,PasswordEncoder passwordEncoder,AuthUtil authUtil) {
 		super();
 		this.userRepository = userRepository;
 		this.imageRepository = imageRepository;
 		this.userMapper = userMapper;
 		this.passwordEncoder=passwordEncoder;
+		this.authUtil=authUtil;
 	}
 
 	@Override
@@ -54,11 +58,14 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
-	public UserResponse findUserById(int userId) {
+	public UserResponse findUserById() {
 
-		Optional<User> optional = userRepository.findById(userId);
-		if (optional.isPresent()) {
-			User user = optional.get();
+//		Optional<User> optional = userRepository.findById(userId);
+//		if (optional.isPresent()) {
+//			User user = optional.get();
+		
+			User user = authUtil.getCurrentUser();
+		
 			UserResponse userresponse = userMapper.mapToUserResponse(user);
 
 			Image profilePicture = user.getProfilePicture();
@@ -73,29 +80,33 @@ public class UserServiceImpl implements UserService {
 			}
 			return userresponse;
 
-		} else {
-			throw new UserNotFoundByIdException("no such userId");
-		}
+	} 
+//			else {
+//			throw new UserNotFoundByIdException("no such userId");
+//		}
 
-	}
+	
 
 	@Override
-	public UserResponse updateUserById(UserRequest userRequest, int userId) {
+	public UserResponse updateUserById(UserRequest userRequest) {
 			
-		Optional<User> optional =userRepository.findById(userId);
-		if (optional.isPresent()) {
-			User user = userMapper.mapToUser(userRequest, optional.get());
+//		Optional<User> optional =userRepository.findById(userId);
+//		if (optional.isPresent()) {
+//			
+		User user = authUtil.getCurrentUser();
+			
+			 user = userMapper.mapToUser(userRequest, user);
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 			user=userRepository.save(user);
 			UserResponse userresponse = userMapper.mapToUserResponse(user);
 		return userresponse;
-	}
-		else
-		{
-			throw new UserNotFoundByIdException("no such userId");
-			
-		}
+	
+//		else
+//		{
+//			throw new UserNotFoundByIdException("no such userId");
+//			
+//		}
 
 }
 }

@@ -10,7 +10,7 @@ import com.example.vehiclerentingapplication.entity.Image;
 public interface ImageService {
 
 
-	void addUser_ProfilePicture(int userId, MultipartFile multipartFile);
+	void addUser_ProfilePicture( MultipartFile multipartFile);
 	
 	Image findImageById( int imageId);
 
