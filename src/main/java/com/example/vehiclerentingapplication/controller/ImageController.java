@@ -31,10 +31,10 @@ public class ImageController {
 		this.responseBuilder=responseBuilder;
 	}
 	
-	@PostMapping("/users/{userId}/images")
-	public ResponseEntity<SimpleResponseStructure> addUser_ProfilePicture(@PathVariable int userId,MultipartFile multipartFile)
+	@PostMapping("/users/images")
+	public ResponseEntity<SimpleResponseStructure> addUser_ProfilePicture(MultipartFile multipartFile)
 	{
-		imageService.addUser_ProfilePicture(userId,multipartFile);
+		imageService.addUser_ProfilePicture(multipartFile);
 		return responseBuilder.success(HttpStatus.OK, "User profile picture updated");
 	}
 	

@@ -47,17 +47,17 @@ public class UserController {
 		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", userresponse);
 	}
 	
-	@GetMapping("/users/{userId}")
-	public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable int userId)
+	@GetMapping("/users")
+	public ResponseEntity<ResponseStructure<UserResponse>> findUserById()
 	{
-		UserResponse userresponse = userService.findUserById(userId);
+		UserResponse userresponse = userService.findUserById();
 		return responseBuilder.success(HttpStatus.FOUND, "User found ",userresponse);
 	}
 	
-	@PutMapping("/users/{userId}")
-	public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody UserRequest userRequest,@PathVariable int userId){
+	@PutMapping("/users")
+	public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody UserRequest userRequest){
 		
-		UserResponse userResponse=userService.updateUserById(userRequest,userId);
+		UserResponse userResponse=userService.updateUserById(userRequest);
 		return responseBuilder.success(HttpStatus.OK, "User Updated ",userResponse);
 	}
 

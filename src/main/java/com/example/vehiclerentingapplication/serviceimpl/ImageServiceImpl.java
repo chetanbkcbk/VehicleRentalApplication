@@ -18,6 +18,7 @@ import com.example.vehiclerentingapplication.exception.VehicleNotFoundException;
 import com.example.vehiclerentingapplication.repository.ImageRepository;
 import com.example.vehiclerentingapplication.repository.UserRepository;
 import com.example.vehiclerentingapplication.repository.VehicleRepository;
+import com.example.vehiclerentingapplication.security.AuthUtil;
 import com.example.vehiclerentingapplication.service.ImageService;
 
 @Service
@@ -29,20 +30,21 @@ public class ImageServiceImpl implements ImageService{
 	
 	private final VehicleRepository vehicleRepository;
 	
-	public ImageServiceImpl(UserRepository userRepository,ImageRepository imageRepository,VehicleRepository vehicleRepository) {
+	private final AuthUtil authUtil;	
+	
+	public ImageServiceImpl(UserRepository userRepository,ImageRepository imageRepository,VehicleRepository vehicleRepository,AuthUtil authUtil) {
 		super();
 		this.userRepository = userRepository;
 		this.imageRepository=imageRepository;
 		this.vehicleRepository=vehicleRepository;
+		this.authUtil=authUtil;
 	}
 
 
 	@Override
-	public void addUser_ProfilePicture(int userId, MultipartFile multipartFile) {
-		Optional<User> optional = userRepository.findById(userId);
-	
-	    if (optional.isPresent()) {
-	        User user = optional.get();
+	public void addUser_ProfilePicture( MultipartFile multipartFile) {
+		
+		User user = authUtil.getCurrentUser();
 
 	        // Check if the user already has a profile picture
 	        if (user.getProfilePicture() != null) {
@@ -54,11 +56,6 @@ public class ImageServiceImpl implements ImageService{
 	        }
 	        this.uploadUserProfile(multipartFile, user);//if profilepic not present it will add       
 	    
-	    
-	    } else {
-	        // Throw exception if user is not found
-	        throw new UserNotFoundByIdException("No such user ID");
-	    }
 	}
 	
 	private void uploadUserProfile(MultipartFile file,User user)
