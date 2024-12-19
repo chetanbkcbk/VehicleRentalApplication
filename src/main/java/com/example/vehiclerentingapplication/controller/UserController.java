@@ -44,7 +44,15 @@ public class UserController {
 	public ResponseEntity<ResponseStructure<UserResponse>> registerRentingPartner(@RequestBody UserRequest userrequest)
 	{
 		UserResponse userresponse = userService.register(userrequest,UserRole.RENTING_PARTNER);
-		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", userresponse);
+		return responseBuilder.success(HttpStatus.CREATED, "RentingPartner Registration successful", userresponse);
+	}
+	
+
+	@PostMapping("/admin/register")
+	public ResponseEntity<ResponseStructure<UserResponse>> registerAdmin(@RequestBody UserRequest userrequest)
+	{
+		UserResponse userresponse = userService.register(userrequest,UserRole.ADMIN);
+		return responseBuilder.success(HttpStatus.CREATED, "Admin Registration successful", userresponse);
 	}
 	
 	@GetMapping("/users")
