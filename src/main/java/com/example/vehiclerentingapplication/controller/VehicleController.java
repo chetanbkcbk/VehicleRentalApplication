@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,8 @@ public class VehicleController {
 
 	}
 
-	@PostMapping("/vehicles")
+	@PostMapping("/add-vehicles")
+	@PreAuthorize("hasAuthority('ADMIN')")    //which endpoint are u trying to protect for the ADMIN
 public ResponseEntity<ResponseStructure<VehicleResponse>>	addVehicle(@RequestBody VehicleRequest vehicleRequest)
 {
 		VehicleResponse vehicleResponse= vehicleService.addVehicle(vehicleRequest);
@@ -51,6 +53,7 @@ public ResponseEntity<ResponseStructure<VehicleResponse>>	addVehicle(@RequestBod
 	}	
 	
 	@PutMapping("/vehicles/{vehicleId}")
+	@PreAuthorize("hasAuthority('ADMIN')") 
 	public ResponseEntity<ResponseStructure<VehicleResponse>> updateVehicleById(@RequestBody VehicleRequest vehicleRequest,@PathVariable int vehicleId){
 		
 	VehicleResponse vehicleResponse=vehicleService.updateVehicleById(vehicleRequest,vehicleId);

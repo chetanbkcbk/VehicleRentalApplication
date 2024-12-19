@@ -3,6 +3,7 @@ package com.example.vehiclerentingapplication.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
 	
@@ -23,8 +25,11 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		return http.csrf(csrf->csrf.disable())   //cross site request forgery->a token that is issued to client side and are one time use only
-		.authorizeHttpRequests(authorize->authorize.requestMatchers("/customer/register","/renting-partner/register","/vehicles")
-				.permitAll().anyRequest().authenticated())
+		.authorizeHttpRequests(authorize->authorize.requestMatchers("/customer/register","/renting-partner/register","/admin/register","/vehicles")
+						.permitAll()
+						//.requestMatchers("/add-vehicles").hasAuthority("ADMIN")
+						.anyRequest().authenticated()
+						)
 		.formLogin(Customizer.withDefaults())
 		.build();
 		
