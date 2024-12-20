@@ -12,4 +12,6 @@ public interface VehicleListingService {
 
 	List<VehicleListingResponse> findAllVehicleListings(int vehicleId);
 
+	void addLocationToVehicleListing(int locationId, int listingId);
+
 }

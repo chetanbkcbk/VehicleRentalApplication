@@ -31,6 +31,14 @@ public class Location {
 	    private List<VehicleListing> vehicleListings; // List of associated vehicle listings
 
 	
+	public List<VehicleListing> getVehicleListings() {
+		return vehicleListings;
+	}
+
+	public void setVehicleListings(List<VehicleListing> vehicleListings) {
+		this.vehicleListings = vehicleListings;
+	}
+
 	public int getLocationId() {
 		return locationId;
 	}
