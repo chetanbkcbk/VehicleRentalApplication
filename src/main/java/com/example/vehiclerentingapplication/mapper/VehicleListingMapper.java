@@ -1,5 +1,8 @@
 package com.example.vehiclerentingapplication.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 import com.example.vehiclerentingapplication.entity.VehicleListing;
@@ -29,4 +32,10 @@ public class VehicleListingMapper {
 		return vehicleListingResponse;
 	}
 	
+	public List<VehicleListingResponse> mapToVehicleListingResponse(List<VehicleListing> vehicleListings)
+	{
+		 return vehicleListings.stream()
+                 .map(this::mapToVehicleListingResponse)
+                 .collect(Collectors.toList());
+	}
 }

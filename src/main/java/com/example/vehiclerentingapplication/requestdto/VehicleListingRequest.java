@@ -9,7 +9,6 @@ public class VehicleListingRequest {
 
 	private String vehicleNo;
 	private Double pricePerDay;
-	
 	private SeatingType seating;
 	
 	

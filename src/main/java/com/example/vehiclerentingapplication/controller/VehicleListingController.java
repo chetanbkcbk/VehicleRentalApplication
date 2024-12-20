@@ -1,8 +1,11 @@
 package com.example.vehiclerentingapplication.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +39,15 @@ public class VehicleListingController {
 	public ResponseEntity<ResponseStructure<VehicleListingResponse>> insertVehicleListing(@RequestParam int vehicleId,@RequestBody VehicleListingRequest vehicleListingRequest) {
 			VehicleListingResponse vehicleListingResponse=vehicleListingService.insertVehicleListing(vehicleId,vehicleListingRequest);
 		return responseBuilder.success(HttpStatus.CREATED, "VehicleListing Created Successfully", vehicleListingResponse);
+	}
+	
+	
+	@GetMapping("/vehiclelistings")
+	public ResponseEntity<ResponseStructure<List<VehicleListingResponse>>> findAllVehicleListings(@RequestParam int vehicleId)
+	{
+		List<VehicleListingResponse> vehicleListingResponses = vehicleListingService.findAllVehicleListings(vehicleId);
+		return responseBuilder.success(HttpStatus.FOUND, "VehicleListings Found Successfully", vehicleListingResponses);
+
 	}
 }
 

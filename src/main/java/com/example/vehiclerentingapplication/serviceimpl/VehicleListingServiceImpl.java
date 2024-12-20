@@ -1,5 +1,6 @@
 package com.example.vehiclerentingapplication.serviceimpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -59,6 +60,20 @@ public class VehicleListingServiceImpl implements VehicleListingService{
 											vehicleListing.setRentingPartner(rentingPartner);
 						   vehicleListing=vehicleListingRepository.save(vehicleListing);
 	return vehicleListingMapper.mapToVehicleListingResponse(vehicleListing);
+	}
+
+
+
+
+	@Override
+	public List<VehicleListingResponse> findAllVehicleListings(int vehicleId) {
+				
+			if(!vehicleRepository.existsById(vehicleId))
+				throw new VehicleNotFoundException("Vehicle with such vehicle id not found");
+		
+			List<VehicleListing> vehicleListings = vehicleListingRepository.findByVehicle_VehicleId(vehicleId);
+		
+			return vehicleListingMapper.mapToVehicleListingResponse(vehicleListings);
 	}
 
 	
