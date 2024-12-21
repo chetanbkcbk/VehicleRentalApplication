@@ -17,6 +17,7 @@ import com.example.vehiclerentingapplication.responsedto.VehicleResponse;
 import com.example.vehiclerentingapplication.service.VehicleListingService;
 import com.example.vehiclerentingapplication.utility.ResponseStructure;
 import com.example.vehiclerentingapplication.utility.RestResponseBuilder;
+import com.example.vehiclerentingapplication.utility.SimpleResponseStructure;
 
 @RestController
 public class VehicleListingController {
@@ -49,6 +50,17 @@ public class VehicleListingController {
 		return responseBuilder.success(HttpStatus.FOUND, "VehicleListings Found Successfully", vehicleListingResponses);
 
 	}
+	
+	@PostMapping("/addlocation-to-vehiclelisting")
+	public ResponseEntity<SimpleResponseStructure> addLocationToVehicleListing(@RequestParam int locationId,@RequestParam int listingId)
+	{
+		vehicleListingService.addLocationToVehicleListing(locationId,listingId);
+	return responseBuilder.success(HttpStatus.OK,"Added location to existing VehicleListings");
+	}
+	
+	
+	
+	
 }
 
 	
