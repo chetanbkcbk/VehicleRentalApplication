@@ -16,7 +16,7 @@ public Booking mapToBooking(BookingRequest request, Booking booking) {
 		booking.setStatus(request.getStatus());
 		booking.setTotalPayableAmount(request.getTotalPayableAmount());
 		booking.setRentingType(request.getRentingType());
-		booking.setDuration(request.getDuration());
+		//booking.setDuration(request.getDuration());
 	
 		return booking;	
 		
@@ -26,6 +26,7 @@ public Booking mapToBooking(BookingRequest request, Booking booking) {
 	public BookingResponse mapToBookingResponse(Booking booking) {
 		
 		BookingResponse bookingResponse=new BookingResponse();
+		bookingResponse.setBookingId(booking.getBookingId());
 		bookingResponse.setStatus(booking.getStatus());
 		bookingResponse.setTotalPayableAmount(booking.getTotalPayableAmount());
 		bookingResponse.setRentingType(booking.getRentingType());
