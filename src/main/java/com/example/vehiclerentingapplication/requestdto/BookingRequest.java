@@ -1,6 +1,9 @@
 package com.example.vehiclerentingapplication.requestdto;
 
+
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.example.vehiclerentingapplication.enums.BookingStatus;
 import com.example.vehiclerentingapplication.enums.RentingType;
@@ -10,9 +13,32 @@ public class BookingRequest {
 	private BookingStatus status;
 	private Double totalPayableAmount;
 	private RentingType rentingType;
-	private Duration duration;
+	private long durationInDays;
 	
+	private LocalDate pickUpDate;
+	private LocalTime pickUpTime;
 	
+	private LocalTime dropTime;
+	
+	public LocalDate getPickUpDate() {
+		return pickUpDate;
+	}
+	public void setPickUpDate(LocalDate pickUpDate) {
+		this.pickUpDate = pickUpDate;
+	}
+	public LocalTime getPickUpTime() {
+		return pickUpTime;
+	}
+	public void setPickUpTime(LocalTime pickUpTime) {
+		this.pickUpTime = pickUpTime;
+	}
+	
+	public LocalTime getDropTime() {
+		return dropTime;
+	}
+	public void setDropTime(LocalTime dropTime) {
+		this.dropTime = dropTime;
+	}
 	public BookingStatus getStatus() {
 		return status;
 	}
@@ -31,11 +57,11 @@ public class BookingRequest {
 	public void setRentingType(RentingType rentingType) {
 		this.rentingType = rentingType;
 	}
-	public Duration getDuration() {
-		return duration;
+	public long getDurationInDays() {
+		return durationInDays;
 	}
-	public void setDuration(Duration duration) {
-		this.duration = duration;
+	public void setDurationInDays(long durationInDays) {
+		this.durationInDays = durationInDays;
 	}
-
+	
 }

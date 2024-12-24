@@ -26,6 +26,7 @@ import com.example.vehiclerentingapplication.repository.PickUpRepository;
 import com.example.vehiclerentingapplication.repository.VehicleListingRepository;
 import com.example.vehiclerentingapplication.requestdto.BookingRequest;
 import com.example.vehiclerentingapplication.responsedto.BookingResponse;
+import com.example.vehiclerentingapplication.responsedto.PickUpResponse;
 import com.example.vehiclerentingapplication.security.AuthUtil;
 import com.example.vehiclerentingapplication.service.BookingService;
 
@@ -77,58 +78,61 @@ public class BookingServiceImpl implements BookingService{
 
 
 	@Override
-	public void createBooking(BookingRequest bookingRequest, int listingId, int pickUpLocationId, int dropLocationId) {
+	public BookingResponse createBooking(BookingRequest bookingRequest, int listingId, int pickUpLocationId, int dropLocationId) {
 
 		Location pickUpLocation = locationRepository.findById(pickUpLocationId).orElseThrow(()-> new NoSuchLocationException("no such pickup Id"));
 		Location dropLocationPlace = locationRepository.findById(dropLocationId).orElseThrow(()-> new NoSuchLocationException("no such drop Id"));
 		VehicleListing vehicleListing = vehicleListingRepository.findById(listingId).orElseThrow(()-> new NoVehicleListingException("no such listing Id"));
 		
-		Booking booking=bookingMapper.mapToBooking(bookingRequest, new Booking());
+	//	Booking booking=bookingMapper.mapToBooking(bookingRequest, new Booking());
 		
-		Duration duration;
-        try {
-            duration = Duration.parse(bookingRequest.getDuration());
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid duration format. Please use ISO 8601 format (e.g., P2D).");
-        }
-
+		Duration duration=Duration.ofDays(bookingRequest.getDurationInDays());
+        
+        
 		
 		PickUp pickUp=new PickUp();
 		
-		pickUp.setDate(LocalDate.now());
-		pickUp.setTime(LocalTime.now());
-		pickUp.setLocation(pickUpLocation);
+//		pickUp.setDate(bookingRequest.getPickUpDate());
+//		pickUp.setTime(bookingRequest.getPickUpTime());
+//		pickUp.setLocation(pickUpLocation);
+		
+		pickUp=pickUpMapper.mapToPickUp(pickUp, bookingRequest, pickUpLocation);
 		
 		
 		DropLocation dropLocation=new DropLocation();
 		
 		dropLocation.setDate(pickUp.getDate().plusDays(duration.toDays()));
-		dropLocation.setTime(LocalTime.now());
-		dropLocation.setLocation(dropLocationPlace);
+//		dropLocation.setTime(bookingRequest.getDropTime());   //pickUp.getTime().plusHours(duration.toHours())
+//		dropLocation.setLocation(dropLocationPlace);
+
+		dropLocation=dropLocationMapper.mapToDrop(dropLocation, bookingRequest, dropLocationPlace);
 		
 		
 		  // Save the pickup and drop location entities
         pickUp = pickUpRepository.save(pickUp);
         dropLocation = dropRepository.save(dropLocation);
 
-		
-        booking.setPickupInfo(pickUp);
-        booking.setDropInfo(dropLocation);
-        booking.setDuration(bookingRequest.getDuration()); // Store the duration if needed
-
-        booking.setUser(authUtil.getCurrentUser());	
-        booking.setVehicleListing(vehicleListing);
-		
-		
-         bookingRepository.save(booking);
-         
-         BookingResponse bookingResponse = bookingMapper.mapToBookingResponse(booking);
-         bookingResponse.setPickup(pickUpMapper.mapToPickUpResponse(pickUp));
-         bookingResponse.setDrop(dropLocationMapper.mapToDropResponse(dropLocation));
-         bookingResponse.setVehicle(vehicleListingMapper.mapToVehicleListingResponse(vehicleListing));
+//		
+//        booking.setPickupInfo(pickUp);
+//        booking.setDropInfo(dropLocation);
+//        booking.setDuration(duration); // Store the duration if needed
+//
+//        booking.setUser(authUtil.getCurrentUser());	
+//        booking.setVehicleListing(vehicleListing);
         
+        Booking booking = bookingMapper.mapToBooking(bookingRequest, new Booking(), pickUp, dropLocation, duration, authUtil.getCurrentUser(), vehicleListing);
+		
+		bookingRepository.save(booking);
+         
+        BookingResponse bookingResponse = bookingMapper.mapToBookingResponse(booking);
+        
+        bookingResponse.setPickup(pickUpMapper.mapToPickUpResponse(pickUp,pickUpLocation));
+         bookingResponse.setDrop(dropLocationMapper.mapToDropResponse(dropLocation,dropLocationPlace));
+         bookingResponse.setVehicle(vehicleListingMapper.mapToVehicleListingResponse(vehicleListing));
+         bookingResponse.setDuration(booking.getDuration());
          bookingResponse.setVehicleModel(vehicleMapper.mapToVehicleResponse(vehicleListing.getVehicle()));
         
+	return bookingResponse;
 	}
 
 }

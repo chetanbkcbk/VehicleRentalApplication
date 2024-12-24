@@ -8,6 +8,15 @@ public class PickUpResponse {
 	private int pickupId;
 	private LocalDate date;
 	private LocalTime time;
+	private LocationResponse location;
+	
+	
+	public LocationResponse getLocation() {
+		return location;
+	}
+	public void setLocation(LocationResponse location) {
+		this.location = location;
+	}
 	public int getPickupId() {
 		return pickupId;
 	}

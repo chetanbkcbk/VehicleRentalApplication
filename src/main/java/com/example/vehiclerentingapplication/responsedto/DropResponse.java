@@ -9,6 +9,21 @@ public class DropResponse {
 	private LocalDate date;
 	private LocalTime time;
 	
+	private LocationResponse location;
+	
+	
+	public int getDropId() {
+		return dropId;
+	}
+	public void setDropId(int dropId) {
+		this.dropId = dropId;
+	}
+	public LocationResponse getLocation() {
+		return location;
+	}
+	public void setLocation(LocationResponse location) {
+		this.location = location;
+	}
 	public int getPickupId() {
 		return dropId;
 	}
