@@ -26,7 +26,7 @@ public class DropLocationMapper {
 		
 	  //dropLocation.setDate(request.getPickUpDate());
 	
-		dropLocation.setTime(request.getDropTime());
+		dropLocation.setTime(LocalTime.of(23, 59, 0));
 		dropLocation.setLocation(dropLocationPlace);
 		
 		return dropLocation;
@@ -39,7 +39,7 @@ public class DropLocationMapper {
 		
 		dropResponse.setDropId(drop.getDropId());
 		dropResponse.setDate(drop.getDate());
-		dropResponse.setTime(LocalTime.of(23, 59, 0));
+		dropResponse.setTime(drop.getTime());
 		dropResponse.setLocation(locationMapper.mapToLocationResponse(dropLocation));
 		
 		return dropResponse;
