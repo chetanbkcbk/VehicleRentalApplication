@@ -20,6 +20,8 @@ import com.example.vehiclerentingapplication.utility.ResponseStructure;
 import com.example.vehiclerentingapplication.utility.RestResponseBuilder;
 import com.example.vehiclerentingapplication.utility.SimpleResponseStructure;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class UserController {
 	
@@ -33,7 +35,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/customer/register")
-	public ResponseEntity<ResponseStructure<UserResponse>> registerCustomer(@RequestBody UserRequest userrequest)
+	public ResponseEntity<ResponseStructure<UserResponse>> registerCustomer(@RequestBody  @Valid UserRequest userrequest)
 	{
 		UserResponse userresponse = userService.register(userrequest,UserRole.CUSTOMER);
 		return responseBuilder.success(HttpStatus.CREATED, "User Registration successful", userresponse);
@@ -41,7 +43,7 @@ public class UserController {
 	
 	
 	@PostMapping("/renting-partner/register")
-	public ResponseEntity<ResponseStructure<UserResponse>> registerRentingPartner(@RequestBody UserRequest userrequest)
+	public ResponseEntity<ResponseStructure<UserResponse>> registerRentingPartner(@RequestBody @Valid UserRequest userrequest)
 	{
 		UserResponse userresponse = userService.register(userrequest,UserRole.RENTING_PARTNER);
 		return responseBuilder.success(HttpStatus.CREATED, "RentingPartner Registration successful", userresponse);
@@ -49,7 +51,7 @@ public class UserController {
 	
 
 	@PostMapping("/admin/register")
-	public ResponseEntity<ResponseStructure<UserResponse>> registerAdmin(@RequestBody UserRequest userrequest)
+	public ResponseEntity<ResponseStructure<UserResponse>> registerAdmin(@RequestBody @Valid UserRequest userrequest)
 	{
 		UserResponse userresponse = userService.register(userrequest,UserRole.ADMIN);
 		return responseBuilder.success(HttpStatus.CREATED, "Admin Registration successful", userresponse);
@@ -63,7 +65,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/users")
-	public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody UserRequest userRequest){
+	public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody @Valid UserRequest userRequest){
 		
 		UserResponse userResponse=userService.updateUserById(userRequest);
 		return responseBuilder.success(HttpStatus.OK, "User Updated ",userResponse);

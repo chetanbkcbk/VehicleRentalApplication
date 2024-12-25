@@ -28,7 +28,7 @@ public class Location {
 	private User user;
 
 	 @ManyToMany(mappedBy = "pickupLocations") // This side is not the owner
-	    private List<VehicleListing> vehicleListings; // List of associated vehicle listings
+	   private List<VehicleListing> vehicleListings; // List of associated vehicle listings
 
 	
 	public List<VehicleListing> getVehicleListings() {

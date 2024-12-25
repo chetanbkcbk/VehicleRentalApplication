@@ -13,57 +13,57 @@ public class ApplicationExceptionHandler {
 	
 	
 	@ExceptionHandler
-	public ResponseEntity<ErrorStructure> handleUserNotFoundById(UserNotFoundByIdException ex) {
+	public ResponseEntity<ErrorStructure<String>> handleUserNotFoundById(UserNotFoundByIdException ex) {
 		
 		ErrorStructure<String > errorStructure=new ErrorStructure<String>();
 		errorStructure.setStatuscode(HttpStatus.NOT_FOUND.value());
 		errorStructure.setMessage(ex.getMessage());
 		errorStructure.setData("User requested userid not present in the database");
 		
-		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ErrorStructure<String>>(errorStructure,HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler
-	public ResponseEntity<ErrorStructure> handleFailedToUploadImage(FailedToUploadImageException ex) {
+	public ResponseEntity<ErrorStructure<String>> handleFailedToUploadImage(FailedToUploadImageException ex) {
 		
 		ErrorStructure<String > errorStructure=new ErrorStructure<String>();
 		errorStructure.setStatuscode(HttpStatus.BAD_REQUEST.value());
 		errorStructure.setMessage(ex.getMessage());
 		errorStructure.setData("Failed to upload that particular image into the database");
 		
-		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<ErrorStructure<String>>(errorStructure,HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler
-	public ResponseEntity<ErrorStructure> handleImageNotFound(ImageNotFoundException ex) {
+	public ResponseEntity<ErrorStructure<String>> handleImageNotFound(ImageNotFoundException ex) {
 		
 		ErrorStructure<String > errorStructure=new ErrorStructure<String>();
 		errorStructure.setStatuscode(HttpStatus.NOT_FOUND.value());
 		errorStructure.setMessage(ex.getMessage());
 		errorStructure.setData("No image with such image id present in the database");
 		
-		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ErrorStructure<String>>(errorStructure,HttpStatus.NOT_FOUND);
 	}
 	@ExceptionHandler
-	public ResponseEntity<ErrorStructure> handleVehicleNotFound(VehicleNotFoundException ex) {
+	public ResponseEntity<ErrorStructure<String>> handleVehicleNotFound(VehicleNotFoundException ex) {
 		
 		ErrorStructure<String > errorStructure=new ErrorStructure<String>();
 		errorStructure.setStatuscode(HttpStatus.NOT_FOUND.value());
 		errorStructure.setMessage(ex.getMessage());
 		errorStructure.setData("No Vehicle with such vehicle id present in the database");
 		
-		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ErrorStructure<String>>(errorStructure,HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler
-	public ResponseEntity<ErrorStructure> handleUsernameNotFound(UsernameNotFoundException ex) {
+	public ResponseEntity<ErrorStructure<String>> handleUsernameNotFound(UsernameNotFoundException ex) {
 		
 		ErrorStructure<String > errorStructure=new ErrorStructure<String>();
 		errorStructure.setStatuscode(HttpStatus.NOT_FOUND.value());
 		errorStructure.setMessage(ex.getMessage());
 		errorStructure.setData("No such user email present in the database");
 		
-		return new ResponseEntity<ErrorStructure>(errorStructure,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ErrorStructure<String>>(errorStructure,HttpStatus.NOT_FOUND);
 	}
 	
 	
