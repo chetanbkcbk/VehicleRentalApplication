@@ -20,7 +20,7 @@ public class BookingMapper {
 public Booking mapToBooking(BookingRequest request, Booking booking,PickUp pickUpInfo,DropLocation dropInfo,Duration duration,User user,VehicleListing vehicleListing) {
 		
 		booking.setStatus(request.getStatus());
-		booking.setTotalPayableAmount(request.getTotalPayableAmount());
+		booking.setTotalPayableAmount(request.getDurationInDays()*vehicleListing.getPricePerDay());
 		booking.setRentingType(request.getRentingType());
 		booking.setDuration(duration);
 		booking.setPickupInfo(pickUpInfo);
@@ -38,7 +38,6 @@ public Booking mapToBooking(BookingRequest request, Booking booking,PickUp pickU
 		bookingResponse.setStatus(booking.getStatus());
 		bookingResponse.setTotalPayableAmount(booking.getTotalPayableAmount());
 		bookingResponse.setRentingType(booking.getRentingType());
-		bookingResponse.setDuration(booking.getDuration());	
 		return bookingResponse;
 		
 	}	

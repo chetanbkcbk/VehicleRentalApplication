@@ -126,10 +126,10 @@ public class BookingServiceImpl implements BookingService{
          
         BookingResponse bookingResponse = bookingMapper.mapToBookingResponse(booking);
         
-        bookingResponse.setPickup(pickUpMapper.mapToPickUpResponse(pickUp,pickUpLocation));
+         bookingResponse.setPickup(pickUpMapper.mapToPickUpResponse(pickUp,pickUpLocation));
          bookingResponse.setDrop(dropLocationMapper.mapToDropResponse(dropLocation,dropLocationPlace));
          bookingResponse.setVehicle(vehicleListingMapper.mapToVehicleListingResponse(vehicleListing));
-         bookingResponse.setDuration(booking.getDuration());
+         bookingResponse.setDuration(booking.getDuration().toDays());
          bookingResponse.setVehicleModel(vehicleMapper.mapToVehicleResponse(vehicleListing.getVehicle()));
         
 	return bookingResponse;

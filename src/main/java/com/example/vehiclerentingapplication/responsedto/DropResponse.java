@@ -24,12 +24,7 @@ public class DropResponse {
 	public void setLocation(LocationResponse location) {
 		this.location = location;
 	}
-	public int getPickupId() {
-		return dropId;
-	}
-	public void setPickupId(int dropId) {
-		this.dropId = dropId;
-	}
+	
 	public LocalDate getDate() {
 		return date;
 	}

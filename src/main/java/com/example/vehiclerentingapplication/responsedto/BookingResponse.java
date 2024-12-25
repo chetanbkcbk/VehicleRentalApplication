@@ -12,7 +12,7 @@ public class BookingResponse {
 	private Double totalPayableAmount;
 	
 	private RentingType rentingType;
-	private Duration duration;
+	private long duration;
 	
 	private VehicleResponse vehicleModel;
 	private VehicleListingResponse vehicle;
@@ -52,11 +52,11 @@ public class BookingResponse {
 	public void setRentingType(RentingType rentingType) {
 		this.rentingType = rentingType;
 	}
-	public Duration getDuration() {
+	public long getDuration() {
 		return duration;
 	}
-	public void setDuration(Duration duration) {
-		this.duration = duration;
+	public void setDuration(long l) {
+		this.duration = l;
 	}
 	public int getBookingId() {
 		return bookingId;

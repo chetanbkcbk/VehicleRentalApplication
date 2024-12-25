@@ -1,5 +1,7 @@
 package com.example.vehiclerentingapplication.mapper;
 
+import java.time.LocalTime;
+
 import org.springframework.stereotype.Component;
 
 import com.example.vehiclerentingapplication.entity.DropLocation;
@@ -35,9 +37,9 @@ public class DropLocationMapper {
 		
 		DropResponse dropResponse=new DropResponse();
 		
-		dropResponse.setPickupId(drop.getDropId());
+		dropResponse.setDropId(drop.getDropId());
 		dropResponse.setDate(drop.getDate());
-		dropResponse.setTime(drop.getTime());
+		dropResponse.setTime(LocalTime.of(23, 59, 0));
 		dropResponse.setLocation(locationMapper.mapToLocationResponse(dropLocation));
 		
 		return dropResponse;
